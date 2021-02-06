@@ -55,12 +55,16 @@ function App() {
     // }
 
     const underline = useRef(null)
-    function initPosition(item) {
-        underline.current.style.width = ''
-    }
+    // 最初の一回のみ実行
+    useEffect( () => {
+        function initPosition() {
+            underline.current.style.width = item1.current.clientWidth + 'px'
+        }
+        initPosition()
+    }, [])
     function movePosition (item) {
-        console.log(underline.current)
-        console.log(item.clientWidth)
+        // これで位置情報を取得できる
+        console.log(item.getBoundingClientRect())
         underline.current.style.width = item.clientWidth + 'px'
     }
 
@@ -70,10 +74,10 @@ function App() {
             <button onClick={countUp}>CLICK</button>
             <div style={itemArea}>
                 <ul style={styled}>
-                    <li ref={item1} onMouseEnter={() => movePosition(item1.current)} onMouseLeave={() => initPosition(item1.current)}>item1</li>
-                    <li ref={item2} onMouseEnter={() => movePosition(item2.current)} onMouseLeave={() => initPosition(item2.current)}>item2</li>
-                    <li ref={item3} onMouseEnter={() => movePosition(item3.current)} onMouseLeave={() => initPosition(item3.current)}>item3</li>
-                    <li ref={item4} onMouseEnter={() => movePosition(item4.current)} onMouseLeave={() => initPosition(item4.current)}>item4</li>
+                    <li ref={item1} onMouseEnter={() => movePosition(item1.current)}>item1</li>
+                    <li ref={item2} onMouseEnter={() => movePosition(item2.current)}>item2222222222</li>
+                    <li ref={item3} onMouseEnter={() => movePosition(item3.current)}>item3</li>
+                    <li ref={item4} onMouseEnter={() => movePosition(item4.current)}>item4</li>
                 </ul>
                 <span style={underlineStyled} ref={underline}></span>
             </div>
